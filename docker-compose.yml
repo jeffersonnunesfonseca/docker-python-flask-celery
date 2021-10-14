@@ -8,6 +8,6 @@ services:
     container_name: it-api
     restart: always
     ports: 
-        - "8000:${PORT}"
+        - "${PORT_HOST}:${PORT_FLASK}"
     volumes:
         - .:/usr/src/app
