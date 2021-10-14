@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  app:
+    env_file:
+        - .env
+    build: .
+    image: it-api
+    container_name: it-api
+    restart: always
+    ports: 
+        - "8000:${PORT}"
+    volumes:
+        - .:/usr/src/app
