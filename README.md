@@ -15,7 +15,7 @@ Ambiente docker com python utilizando o framework flask
     <b>Modo de usar</b>    
 </h2> 
 
-- crie um novo arquivo .env com base no .env.example adicionando a porta desejada
+- crie um novo arquivo .env com base no .env.example
 - use o comando `docker-compose up -d --build` para subir o container
 
 <h2>
@@ -23,3 +23,36 @@ Ambiente docker com python utilizando o framework flask
 </h2> 
 
 `http://localhost:<PORT_HOST>`
+
+
+<h2>
+    APIs
+</h2>
+
+### Autenticação
+
+<div>
+
+#### <a href="https://pyjwt.readthedocs.io/en/stable/"> JWT - PYJWT</a>
+- Gerar TOKEN
+    
+    ```
+    - GET /generateToken/
+    - payload any json
+    {
+	    "name":"Jeff",
+	    "age":26
+    }
+
+    ``` 
+- Decode TOKEN
+    ```
+    - POST /decodeToken/
+        - payload token in json
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYnJhYm8iLCJhZ2UiOjI1fQ.DQu6nPdEmJhxrCAIFX8qzMajBzP40i--_BkLPpJpFPA"
+        }
+
+    ```
+
+<div>
