@@ -11,6 +11,8 @@ def generateToken():
     try:
         token = Auth()
         return token.generateToken(request.json)
+    except TypeError as e:
+        return jsonify({"error": "invalid reuqest"}), 400
     except:
         return jsonify({"error": "bad request"}), 400
 

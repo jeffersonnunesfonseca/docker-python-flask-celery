@@ -1,12 +1,4 @@
-from api.controllers.auth.jwt import Jwt
+from api.models import User
 
-jwt = Jwt()
+teste = User(1,"jose",26);
 
-payload = {"nome": "jeff", "age":25}
-token = jwt.generateToken(payload)
-print("Token: ",format(token))
-
-decodedToken = jwt.decodeJwt(token)
-print("Token decoded: ",format(decodedToken))
-
-print(decodedToken["age"])
