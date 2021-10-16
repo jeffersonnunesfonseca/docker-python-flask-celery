@@ -1,6 +1,6 @@
 from flask import session,request,url_for,jsonify
 from api import app
-from api.controllers.auth.jwt import Jwt
+from .controllers import Auth
 
 @app.route("/")
 def index():
@@ -9,17 +9,17 @@ def index():
 @app.route("/generateToken/")
 def generateToken():  
     try:
-        jwt = Jwt()
-        return jwt.generateToken(request.json)
+        token = Auth()
+        return token.generateToken(request.json)
     except:
         return jsonify({"error": "bad request"}), 400
 
 @app.route("/decodeToken",methods=['POST'])
 def decodeToken():  
     try:
-        jwt = Jwt()
+        token = Auth()
         print(request.json)
-        return jwt.decodeJwt(request.json["token"])
+        return token.decodeJwt(request.json["token"])
     except:
         return jsonify({"error": "bad request"}), 400
 

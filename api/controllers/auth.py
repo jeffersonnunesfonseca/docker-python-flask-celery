@@ -1,6 +1,6 @@
 import jwt
 import os
-class Jwt :
+class Auth :
     
     def __init__(self):
         pass
