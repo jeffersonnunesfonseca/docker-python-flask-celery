@@ -1,4 +1,4 @@
 from api.models import User
 
-teste = User(1,"jose",26);
+teste = User(None,"jose",26);
 

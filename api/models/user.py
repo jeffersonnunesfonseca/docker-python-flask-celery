@@ -11,5 +11,6 @@ class User(UserRepositoryMemory) :
 
         super().create(self)
         lista = super().getList()
-        print(f"self {lista}")
+
+        print(lista)
 
