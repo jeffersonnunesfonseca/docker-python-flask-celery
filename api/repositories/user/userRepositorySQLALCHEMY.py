@@ -4,8 +4,8 @@ from uuid import uuid4
 from ...controllers import Auth
 from ...models import User
 from api import db
-import datetime
 from sqlalchemy import update
+from pprint import pprint
 class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
 
     __tablename__ ="users"
@@ -25,6 +25,12 @@ class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
     deleted=db.Column(db.Integer(),default=0)
 
     def __init__(self,user:User) -> None:
+        if user.id == None:
+            user.id = uuid4()
+        
+        if hasattr(user, 'senha'):
+            user.senha = Auth().generatePassword(user.senha)
+            
         self.id = user.id
         self.nome = user.nome
         self.email = user.email
@@ -44,18 +50,10 @@ class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
     def getList(self):
         return self.__dict__
     
-    def updateById(self,field,value):
-        result = db.session.query(UserRepositorySQLALCHEMY).filter(UserRepositorySQLALCHEMY.id == self.id).one()
-        setattr(result,field,value)
-        db.session.commit()
+    def update(self,object:User):
+        db.session.query(UserRepositorySQLALCHEMY).filter(UserRepositorySQLALCHEMY.id == self.id).update(object.__dict__)
+        db.session.commit()   
 
-    def create(self):
-        if self.id == None:
-            self.id = uuid4()
-        
-        if hasattr(self, 'senha'):
-            self.senha = Auth().generatePassword(self.senha)
-    
     def save(self):
         db.session.add(self)
         db.session.commit()
