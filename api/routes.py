@@ -1,6 +1,6 @@
 from flask import session,request,url_for,jsonify
 from api import app
-from .controllers import Auth
+from .controllers import AuthController, UserController
 
 @app.route("/")
 def index():
@@ -9,7 +9,7 @@ def index():
 @app.route("/generateToken/")
 def generateToken():  
     try:
-        token = Auth()
+        token = AuthController()
         return token.generateToken(request.json)
     except TypeError as e:
         return jsonify({"error": "invalid reuqest"}), 400
@@ -19,11 +19,21 @@ def generateToken():
 @app.route("/decodeToken",methods=['POST'])
 def decodeToken():  
     try:
-        token = Auth()
+        token = AuthController()
         print(request.json)
         return token.decodeJwt(request.json["token"])
     except:
         return jsonify({"error": "bad request"}), 400
+
+@app.route("/createUser",methods=['POST'])
+def createUser():  
+    try:
+        user = UserController()
+        return user.createUser(request.json)
+    except:
+        return jsonify({"error": "bad request"}), 400
+
+
 
 @app.route('/<path:text>', methods=['GET', 'POST'])
 def all_routes(text):

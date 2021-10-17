@@ -1,7 +1,7 @@
 import jwt
 import os
 import hashlib
-class Auth :
+class AuthController :
     
     def __init__(self):
         pass
