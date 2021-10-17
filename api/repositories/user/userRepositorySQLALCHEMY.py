@@ -1,45 +1,53 @@
+from sqlalchemy.orm import session
 from .userRepositoryContract import UserRepositoryContract
 from uuid import uuid4
 from ...controllers import Auth
 from ...models import User
 from api import db
-from sqlalchemy import insert
+import datetime
+from sqlalchemy import update
 class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
-    """
-    setando atributos no repository mesmo que ja esteja setado na model, isso por que não quero gerar que minha model 
-    fique dependendo do db para dizer as tipagens,estou uma melhor forma.
-    """ 
+
     __tablename__ ="users"
     id=db.Column(db.String(255), primary_key=True)
     nome=db.Column(db.String(200))
     email=db.Column(db.String(200))
+    nome_empresa=db.Column(db.String(200))
     telefone=db.Column(db.String(16))
     telefone2=db.Column(db.String(16))
-    nomeEmpresa=db.Column(db.String(200))
-    cpfcnpj=db.Column(db.String(18))
-    dataNascimento=db.Column(db.String(10))
-    sexo=db.Column(db.Enum("M","F"))
-    senha=db.Column(db.String(200))
-    
-    def __init__(self,object:User) -> None:
-        values = object.__dict__  
-        self.id = values["id"]
-        self.nome = values["nome"]
-        self.email = values["email"]
-        self.telefone = values["telefone"]
-        self.telefone2 = values["telefone2"]
-        self.nomeEmpresa = values["nomeEmpresa"]
-        self.cpfcnpj = values["cpfcnpj"]
-        self.dataNascimento = values["dataNascimento"]
-        self.sexo = values["sexo"]
-        self.senha = values["senha"]
-        
+    cpf_cnpj=db.Column(db.String(18))
+    data_nascimento=db.Column(db.DateTime)
+    sexo=db.Column(db.Enum("F","M"))
+    login=db.Column(db.String(45))
+    senha=db.Column(db.String(255))
+    created_at=db.Column(db.DateTime(timezone=True), server_default=db.func.now())
+    updated_at=db.Column(db.DateTime(timezone=True), onupdate=db.func.now())
+    deleted=db.Column(db.Integer(),default=0)
 
+    def __init__(self,user:User) -> None:
+        self.id = user.id
+        self.nome = user.nome
+        self.email = user.email
+        self.telefone = user.telefone
+        self.telefone2 = user.telefone2
+        self.nome_empresa = user.nome_empresa
+        self.cpf_cnpj = user.cpf_cnpj
+        self.data_nascimento =user.data_nascimento
+        self.sexo =user.sexo
+        self.senha =user.senha
+        self.login=user.login
+        self.deleted=user.deleted
+       
     def getById(self,id):
         return self.query.get(id)
     
     def getList(self):
         return self.__dict__
+    
+    def updateById(self,field,value):
+        result = db.session.query(UserRepositorySQLALCHEMY).filter(UserRepositorySQLALCHEMY.id == self.id).one()
+        setattr(result,field,value)
+        db.session.commit()
 
     def create(self):
         if self.id == None:
@@ -51,4 +59,3 @@ class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
     def save(self):
         db.session.add(self)
         db.session.commit()
-        # insert("users").values(self)
