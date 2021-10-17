@@ -1,8 +1,10 @@
 from api.models import User
+from api.repositories import UserRepositorySQLALCHEMY
 from api.controllers import Auth
 from pprint import pprint
 import hashlib
 import os
+from sqlalchemy import inspect
 
 def testPassword():
     currentPassword = hashlib.sha256(("teste123"+os.environ.get("SALT_ENCRYPT")).encode()).hexdigest()
@@ -14,10 +16,7 @@ def testPassword():
 
 def testUserRepository():
     teste = User()
-    res = teste.getCustomList()
-    pprint(res)
-    return
-    teste.id="1234"
+    teste.id=None
     teste.cpfcnpj="421.920.908-54"
     teste.dataNascimento="12/06/1995"
     teste.email="jose@gmail.com"
@@ -27,10 +26,12 @@ def testUserRepository():
     teste.telefone2="(41) 99943-9555"
     teste.nomeEmpresa="It braba"
     teste.senha="teste123"
-    teste.create(teste)
-    objectUserList=teste.getCustomList()
-    objectUser=teste.getById("2")
-    pprint(objectUser)
+    userRepository = UserRepositorySQLALCHEMY(teste)
+    userRepository.create()
+    userRepository.save()
+    objectUserList=userRepository.getList()
+    # objectUser=teste.getById("2")
+    pprint(objectUserList)
 
 if __name__ == "__main__":
     testUserRepository()
