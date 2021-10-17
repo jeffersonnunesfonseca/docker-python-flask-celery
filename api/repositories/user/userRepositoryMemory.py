@@ -5,7 +5,10 @@ class UserRepositoryMemory(UserRepository):
     mockUserList= []
 
     def getById(self,id):
-        pass
+        for object in self.mockUserList:
+            if object["id"] == id:
+                return object
+        return f"value not found by id {id}"
     
     def getList(self):
         return self.mockUserList
