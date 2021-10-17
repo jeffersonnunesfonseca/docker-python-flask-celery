@@ -1,10 +1,10 @@
-from sqlalchemy.orm import session
+from sqlalchemy.sql.operators import exists
 from .userRepositoryContract import UserRepositoryContract
 from uuid import uuid4
 from ...controllers import Auth
 from ...models import User
 from api import db
-from sqlalchemy import update
+from sqlalchemy import update,exc
 from pprint import pprint
 class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
 
@@ -23,6 +23,10 @@ class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
     created_at=db.Column(db.DateTime(timezone=True), server_default=db.func.now())
     updated_at=db.Column(db.DateTime(timezone=True), onupdate=db.func.now())
     deleted=db.Column(db.Integer(),default=0)
+    __table_args__= (
+        db.UniqueConstraint("cpf_cnpj","email","login"),
+    )
+
 
     def __init__(self,user:User) -> None:
         if user.id == None:
@@ -55,5 +59,15 @@ class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
         db.session.commit()   
 
     def save(self):
+        user = db.session.query(UserRepositorySQLALCHEMY).filter(
+            UserRepositorySQLALCHEMY.cpf_cnpj == self.cpf_cnpj,
+            UserRepositorySQLALCHEMY.email == self.email,
+            UserRepositorySQLALCHEMY.login == self.login,
+        ).first()
+        if user !=None:
+            return None
+
         db.session.add(self)
         db.session.commit()
+        # del self.senha
+        return self.id
