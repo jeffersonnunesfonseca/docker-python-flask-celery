@@ -1,2 +1,1 @@
-from .user.userRepositoryMemory import UserRepositoryMemory
 from .user.userRepositorySQLALCHEMY import UserRepositorySQLALCHEMY

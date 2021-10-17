@@ -1,4 +1,5 @@
-from userService import UserService
+# from userService import UserService
+from api.controllers.user.userService import UserService
 import unittest
 
 class UserServiceTest(unittest.TestCase):

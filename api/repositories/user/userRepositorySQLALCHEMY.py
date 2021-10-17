@@ -1,7 +1,7 @@
 from sqlalchemy.sql.operators import exists
 from .userRepositoryContract import UserRepositoryContract
 from uuid import uuid4
-from ...controllers import Auth
+from ...controllers import AuthController
 from ...models import User
 from api import db
 from sqlalchemy import update,exc
@@ -33,7 +33,7 @@ class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
             user.id = uuid4()
         
         if hasattr(user, 'senha'):
-            user.senha = Auth().generatePassword(user.senha)
+            user.senha = AuthController().generatePassword(user.senha)
             
         self.id = user.id
         self.nome = user.nome
