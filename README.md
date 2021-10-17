@@ -24,6 +24,13 @@ Ambiente docker com python utilizando o framework flask
 
 `http://localhost:<PORT_HOST>`
 
+<h2>
+    Testes
+</h2>
+
+- para realizar os testes estou utilizando a lib <a href="https://docs.python.org/3/library/unittest.html">unittest</a>
+
+- para rodar a suite de testes basta executar `python tests` na raiz do projeto
 
 <h2>
     APIs
@@ -56,3 +63,4 @@ Ambiente docker com python utilizando o framework flask
     ```
 
 <div>
+
