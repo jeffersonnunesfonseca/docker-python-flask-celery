@@ -12,3 +12,7 @@ class UserRepository(ABC):
     @abstractmethod
     def create(self,object):
         pass        
+    
+    @abstractmethod
+    def save(self,object):
+        pass        
