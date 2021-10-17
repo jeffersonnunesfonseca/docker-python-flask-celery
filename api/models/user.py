@@ -1,12 +1,12 @@
 from ..repositories import UserRepositoryMemory
-class User(UserRepositoryMemory) :
-    id=None
-    nome=""
-    email=""
-    telefone=""
-    telefone2=""
-    nomeEmpresa=""
-    cpfcnpj=""
-    dataNascimento=""
-    sexo=""
-    senha=""
+from ..repositories import UserRepositorySQLALCHEMY
+class User(UserRepositorySQLALCHEMY):
+    def __init__(self) -> None:
+        # super().__init__(self)
+        pass
+
+
+    def getCustomList(self):
+        return self.query.all() 
+
+

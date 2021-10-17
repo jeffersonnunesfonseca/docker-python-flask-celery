@@ -14,6 +14,9 @@ def testPassword():
 
 def testUserRepository():
     teste = User()
+    res = teste.getCustomList()
+    pprint(res)
+    return
     teste.id="1234"
     teste.cpfcnpj="421.920.908-54"
     teste.dataNascimento="12/06/1995"
@@ -25,10 +28,9 @@ def testUserRepository():
     teste.nomeEmpresa="It braba"
     teste.senha="teste123"
     teste.create(teste)
-    # objectUserList=teste.getList()
+    objectUserList=teste.getCustomList()
     objectUser=teste.getById("2")
     pprint(objectUser)
 
 if __name__ == "__main__":
-    testPassword()
     testUserRepository()

@@ -1,6 +1,8 @@
 FROM python:3.10-alpine as it-api
 RUN apk update && apk upgrade && apk add bash \
-    busybox-extras
+    busybox-extras \
+    build-base
+
 USER root
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt

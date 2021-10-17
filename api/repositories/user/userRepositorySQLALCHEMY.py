@@ -1,19 +1,26 @@
 from .userRepositoryContract import UserRepositoryContract
 from uuid import uuid4
 from ...controllers import Auth
-class UserRepositoryMemory(UserRepositoryContract):
-    id=None
-    nome=""
-    email=""
-    telefone=""
-    telefone2=""
-    nomeEmpresa=""
-    cpfcnpj=""
-    dataNascimento=""
-    sexo=""
-    senha=""   
+from api import db
+
+class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
+    __tablename__ ="users"
+    id=db.Column(db.String(255), primary_key=True)
+    nome=db.Column(db.String(200))
+    email=db.Column(db.String(200))
+    telefone=db.Column(db.String(11))
+    telefone2=db.Column(db.String(11))
+    nomeEmpresa=db.Column(db.String(200))
+    cpfcnpj=db.Column(db.String(18))
+    dataNascimento=db.Column(db.String(10))
+    sexo=db.Column(db.Enum("M,F"))
+    senha=db.Column(db.String(200))
+
     mockUserList= []    
-    
+
+    def __init__(self) -> None:
+        super().__init__()
+
     def getById(self,id):
         for object in self.mockUserList:
             if object["id"] == id:
