@@ -1,5 +1,22 @@
 version: '3.1'
 services:
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    container_name: it-rmq
+    restart: always
+    ports:
+    - "5672:5672"
+    - "15672:15672"
+  
+  monitor:
+    image: mher/flower:0.9.5
+    container_name: it-monitor
+    command:  flower --address=0.0.0.0 --port=5555 --broker=$CELERY_BROKER_URL --broker_api=$FLOWER_BROKER_API_URL
+    environment:
+      CELERY_BROKER_URL: amqp://it-rmq:5672
+      FLOWER_BROKER_API_URL: http://guest:guest@it-rmq:15672
+    ports:
+      - 5555:5555
   app:
     env_file:
         - .env
@@ -10,4 +27,6 @@ services:
     ports: 
         - "${PORT_HOST}:${PORT_FLASK}"
     volumes:
-        - .:/usr/src/app
+        - .:/usr/src/app  
+  
+  

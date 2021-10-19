@@ -25,9 +25,9 @@ class UserService:
         user.sexo = attr["sexo"]
         user.senha = attr["senha"]
         user.login=attr["login"]
-        result = UserRepositorySQLALCHEMY(user).save()
-        print(result)
-        return result
+        # result = UserRepositorySQLALCHEMY(user).save()
+        return user
     
     def validateTypePayload(self,type):
         return type == dict
+    

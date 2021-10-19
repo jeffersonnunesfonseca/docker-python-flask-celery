@@ -1,9 +1,9 @@
-class UserController :
+from .userService import UserService
+class UserController:
     
     def __init__(self):
         pass
 
     def createUser(self,attributes):
-        print(type(attributes))
-        return attributes
-        
+        schema = UserService().createUser(attributes)
+        return schema.__dict__
