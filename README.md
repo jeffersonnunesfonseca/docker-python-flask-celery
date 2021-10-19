@@ -30,7 +30,7 @@ Ambiente docker com python utilizando o framework flask
 
 - para realizar os testes estou utilizando a lib <a href="https://docs.python.org/3/library/unittest.html">unittest</a>
 
-- para rodar a suite de testes basta executar `python tests` na raiz do projeto
+- para rodar a suite de testes basta executar `python tests` na raiz do projeto e ele executara todos os testes que estiverem em `/apiTests/__init__.py` 
 
 <h2>
     APIs
