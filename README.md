@@ -1,7 +1,7 @@
 <div>
 
 [![Generic badge](https://img.shields.io/badge/flask-2.0.2-<COLOR>.svg)](https://shields.io/)
-[![Generic badge](https://img.shields.io/badge/python-3.10-<COLOR>.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/python-3.06-<COLOR>.svg)](https://shields.io/)
 
 </div>
 <h1 align="center">
@@ -16,7 +16,14 @@ Ambiente docker com python utilizando o framework flask
 </h2> 
 
 - crie um novo arquivo .env com base no .env.example
-- use o comando `docker-compose up -d --build` para subir o container
+- para gerar uma imagem executar `docker build -t "it:<version>" .`
+    -  subir a imagem `docker run -d --name it-app -p 8000:8000  --env-file .env it:v1`
+- rodar local, necessário ter o conda:
+    - `conda create --name docker-python-flask python=3.6`
+    - `conda activate docker-python-flask`
+    - matar processos: ` kill -9 $(ps -ef | grep gunicorn | awk '{print $2}')`
+- subir rabbit
+    -  `docker-compose up -d` 
 
 <h2>
     <b>Acesso</b>    
@@ -61,6 +68,7 @@ Ambiente docker com python utilizando o framework flask
         }
 
     ```
-
 <div>
 
+
+conda create --name docker-python-flask python=3.6

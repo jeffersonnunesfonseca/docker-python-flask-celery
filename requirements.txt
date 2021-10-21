@@ -5,3 +5,5 @@ pymysql
 mysql-connector-python
 celery==5.1.2
 flower>=1
+gunicorn==20.1.0
+eventlet==0.30.2

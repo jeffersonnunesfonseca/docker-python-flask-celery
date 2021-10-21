@@ -1,5 +1,6 @@
 from ...repositories import UserRepositorySQLALCHEMY
 from ...models import User
+from ...controllers.broker.brokerService import BrokerService
 
 class UserService:
     
@@ -26,6 +27,7 @@ class UserService:
         user.senha = attr["senha"]
         user.login=attr["login"]
         # result = UserRepositorySQLALCHEMY(user).save()
+        BrokerService.customerForm(user.__dict__)
         return user
     
     def validateTypePayload(self,type):
