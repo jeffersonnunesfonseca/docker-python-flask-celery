@@ -31,8 +31,7 @@ class UserService:
             try:
                 user = UserRepositorySQLALCHEMY(user).save()
             except:
-                print("ja existe.")
-                return user
+                return {"msg":"user ja existe"}
         else:
             BrokerService.customerForm(user.__dict__)
         return user

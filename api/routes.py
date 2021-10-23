@@ -29,7 +29,7 @@ def decodeToken():
 def createUser():  
     try:
         user = UserController()
-        return user.createUser(request.json)
+        return user.sendUserToQueue(request.json)
     except:
         return jsonify({"error": "bad request"}), 400
 
