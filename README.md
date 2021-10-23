@@ -24,7 +24,7 @@ Ambiente docker com python utilizando o framework flask
     - matar processos: ` kill -9 $(ps -ef | grep gunicorn | awk '{print $2}')`
 - subir rabbit
     -  `docker-compose up -d` 
-
+    
 <h2>
     <b>Acesso</b>    
 </h2> 
