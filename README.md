@@ -18,9 +18,9 @@ Ambiente docker com python utilizando o framework flask
 - crie um novo arquivo .env com base no .env.example
 - para gerar uma imagem executar `docker build -t "it:<version>" .`
     -  subir a imagem `docker run -d --name it-app -p 8000:8000  --env-file .env it:v1`
-- rodar local, necessário ter o conda:
-    - `conda create --name docker-python-flask python=3.6`
-    - `conda activate docker-python-flask`
+- rodar local, necessário ter o <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">conda</a>:
+    - Criar virtual env(será executado apenas 1x): `conda create --name docker-python-flask python=3.6`
+    - Ativar venv: `conda activate docker-python-flask`
     - matar processos: ` kill -9 $(ps -ef | grep gunicorn | awk '{print $2}')`
 - subir rabbit
     -  `docker-compose up -d` 
@@ -70,6 +70,3 @@ Ambiente docker com python utilizando o framework flask
 
     ```
 <div>
-
-
-conda create --name docker-python-flask python=3.6
