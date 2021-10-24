@@ -19,6 +19,7 @@ class UserServiceTest(unittest.TestCase):
             "login": "a"
         }   
         cls.dictMock=dictMock
+        
 
     @classmethod
     def tearDownClass(cls):

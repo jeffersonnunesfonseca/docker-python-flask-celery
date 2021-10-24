@@ -1,13 +1,10 @@
 version: '3.1'
 services:
-  app:
-    env_file:
-        - .env
-    build: .
-    image: it-api
-    container_name: it-api
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    container_name: it-rmq
     restart: always
-    ports: 
-        - "${PORT_HOST}:${PORT_FLASK}"
-    volumes:
-        - .:/usr/src/app
+    ports:
+    - "5672:5672"
+    - "15672:15672"
+  
