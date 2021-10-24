@@ -15,7 +15,7 @@
 - Disponibilizar um conteúdo onde contém uma api em python com o framework Flask, tendo como principais tecnologias:
     - docker, 
     - conda, 
-    - rabbitMQ sendo orquestrado pela poderosa lib celery.
+    - rabbitMQ sendo orquestrado pela poderosa lib <a href="https://docs.celeryproject.org/en/stable/">Celery</a>.
 </div>
 <h2>
     <b>Modo de usar</b>    
@@ -32,6 +32,9 @@
 - subir rabbit
     -  `docker-compose up -d` 
 - rodar o consumer, necessário estar no ambiente  `celery -A tasks  worker --loglevel=info`
+- subir a api direto com o python ou <a href="https://gunicorn.org/#docs">gunicorn</a>
+    -   python: `python run.py`
+    -   gunicorn: `gunicorn --config=gunicorn.py run:app`
 - para gerar uma imagem executar `docker build -t "it:<version>" .`
     -  subir a imagem `docker run -d --name it-app -p 8000:8000  --env-file .env it:v1`
 </div>
@@ -78,4 +81,24 @@
         }
 
     ```
+- Create User
+    ```
+    - POST /createUser/
+        - payload JSON
+        {
+            "nome": "Jeff Teste",
+            "email": "teste@teste.com",
+            "telefone": "(41) 99999-9985",
+            "telefone2": "(41) 99999-9985",
+            "nome_empresa": "teste",
+            "cpf_cnpj": "94.187.140/0001-64",
+            "data_nascimento": "1995-06-12",
+            "sexo": "M",
+            "senha": "12345",
+            "login": "jeffTeste"
+        }
+
+    ```
+
+
 <div>
