@@ -1,5 +1,3 @@
-import sys
-sys.path.insert(0,"/usr/src/app")
 from api.controllers.user.userService import UserService
 import unittest
 class UserServiceTest(unittest.TestCase):
