@@ -28,7 +28,7 @@
     - Ativar venv: `conda activate docker-python-flask`
     - matar processos: ` kill -9 $(ps -ef | grep gunicorn | awk '{print $2}')`
 - subir um banco de dados Mysql, pode utilizar esse projeto <a href="https://github.com/jeffersonnunesfonseca/mysql"> Mysql </a>
-- subir as tabelas com a migration `python migrationSqlAlchemy.py`, se estiver utilizando o projeto de mysql sugerido só sera necessario executar 1x
+- subir as tabelas com a migration `python migrationSqlAlchemy.py`
 - subir rabbit
     -  `docker-compose up -d` 
 - rodar o consumer, necessário estar no ambiente  `celery -A tasks  worker --loglevel=info`
