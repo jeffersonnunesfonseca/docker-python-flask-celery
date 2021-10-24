@@ -8,13 +8,13 @@ class UserService:
         pass
     
     def createUser(self,attr,saveBd=False):
+
         if not self.validateTypePayload(type(attr)):
             return False
 
         for value in attr.keys():
             if not attr[value]:
                 return False
-
         user = User()
         user.nome = attr["nome"]
         user.email = attr["email"]
@@ -26,15 +26,13 @@ class UserService:
         user.sexo = attr["sexo"]
         user.senha = attr["senha"]
         user.login=attr["login"]
-
         if(saveBd ==True):
-            try:
-                user = UserRepositorySQLALCHEMY(user).save()
-            except:
-                return {"msg":"user ja existe"}
+            return UserRepositorySQLALCHEMY(user).save()
         else:
             BrokerService.customerForm(user.__dict__)
-        return user
+            return {
+                "msg":"sended to queue"
+            }
     
     def validateTypePayload(self,type):
         return type == dict

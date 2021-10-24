@@ -65,9 +65,14 @@ class UserRepositorySQLALCHEMY(db.Model,UserRepositoryContract):
             UserRepositorySQLALCHEMY.login == self.login,
         ).first()
         if user !=None:
-            return None
+            return {
+                "id":user.id,
+                "msg": "user already exists"
+            }
 
         db.session.add(self)
         db.session.commit()
-        # del self.senha
-        return self.id
+        return {
+            "id":self.id,
+            "msg":"created successful"
+        }
